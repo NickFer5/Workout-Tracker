@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Workout Tracker</title></head>
+<body>
+    <h1>Workout Tracker</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Log Workout</button>
+    </form>
+
+    <h2>Workout History</h2>
+    <ul>
+        {% for w in workouts %}
+            <li>
+                <strong>{{ w.exercise_name }}</strong> — {{ w.sets }} x {{ w.reps }} 
+                {% if w.duration_minutes %} ({{ w.duration_minutes }} mins){% endif %} on {{ w.date }}
+            </li>
+        {% empty %}
+            <li>No workouts logged yet.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total Reps: {{ total_reps }}</h3>
+    <h3>Total Duration: {{ total_duration }} mins</h3>
+</body>
+</html>
